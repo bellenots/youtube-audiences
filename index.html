@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="YouTube Audiences: Overall vs Left vs Right — Political Data · Sep 2026" />
+  <title>YouTube Audiences: Overall vs Left vs Right</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a222d;
+      --card-hover: #212b38;
+      --border: #2a3544;
+      --text: #e7ecf3;
+      --muted: #8b9bb0;
+      --overall: #4C78A8;
+      --left: #5B8DEF;
+      --right: #E45756;
+      --radius: 14px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(75, 120, 168, 0.18), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 0%, rgba(91, 141, 239, 0.12), transparent),
+        radial-gradient(ellipse 50% 30% at 70% 100%, rgba(228, 87, 86, 0.1), transparent);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-top: 1rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .badge span.dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--overall);
+      box-shadow: 0 0 8px var(--overall);
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .legend i {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+    }
+    .legend .o { background: var(--overall); }
+    .legend .l { background: var(--left); }
+    .legend .r { background: var(--right); }
+
+    section { margin-bottom: 2.75rem; }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Summary cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .card:hover {
+      border-color: #3a4a5c;
+      transform: translateY(-2px);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .card.overall::before { background: var(--overall); }
+    .card.left::before { background: var(--left); }
+    .card.right::before { background: var(--right); }
+
+    .card .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .card.overall .label { color: var(--overall); }
+    .card.left .label { color: var(--left); }
+    .card.right .label { color: var(--right); }
+
+    .card .big {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    .card .meta {
+      margin-top: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .card .meta strong {
+      color: var(--text);
+      font-weight: 560;
+    }
+
+    .callouts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .callouts { grid-template-columns: 1fr; }
+    }
+
+    .callout {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .callout strong { color: var(--text); }
+
+    /* Tables */
+    .tables {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .table-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .table-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.15rem;
+      border-bottom: 1px solid var(--border);
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .table-head h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+
+    .pill.overall { background: rgba(76, 120, 168, 0.2); color: #8eb4d8; }
+    .pill.left { background: rgba(91, 141, 239, 0.2); color: #8fb4f5; }
+    .pill.right { background: rgba(228, 87, 86, 0.2); color: #f0a0a0; }
+
+    .scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 420px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(42, 53, 68, 0.6);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .rank {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 500;
+      color: var(--muted);
+      width: 2.5rem;
+    }
+
+    .channel { font-weight: 560; }
+
+    .num {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .num.overall { color: #8eb4d8; }
+    .num.left { color: #8fb4f5; }
+    .num.right { color: #f0a0a0; }
+
+    /* Images */
+    .media-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    figure {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin: 0;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #111820;
+    }
+
+    figcaption {
+      padding: 0.75rem 1.1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 720px) {
+      .charts-row { grid-template-columns: 1fr; }
+    }
+
+    /* Caveats */
+    .caveats {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+    }
+
+    .caveats ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .caveats li {
+      position: relative;
+      padding-left: 1.15rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .caveats li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a { color: #8eb4d8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .tab {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 560;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .tab:hover { border-color: #3a4a5c; color: var(--text); }
+    .tab.active.overall { background: rgba(76,120,168,0.25); color: #8eb4d8; border-color: var(--overall); }
+    .tab.active.left { background: rgba(91,141,239,0.25); color: #8fb4f5; border-color: var(--left); }
+    .tab.active.right { background: rgba(228,87,86,0.25); color: #f0a0a0; border-color: var(--right); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge"><span class="dot"></span> Snapshot · Sep 2026</div>
+      <h1>YouTube Audiences: Overall vs Left vs Right</h1>
+      <p class="subtitle">Political Data · Sep 2026</p>
+      <div class="legend">
+        <span><i class="o"></i> Overall</span>
+        <span><i class="l"></i> Left</span>
+        <span><i class="r"></i> Right</span>
+      </div>
+    </header>
+
+    <section aria-labelledby="summary-heading">
+      <h2 id="summary-heading" class="section-title">Cohort totals</h2>
+      <div class="cards">
+        <article class="card overall">
+          <div class="label">Overall Top 100</div>
+          <div class="big">~8.34B</div>
+          <div class="meta">combined subscribers<br /><strong>Median ~68M</strong> · n=100</div>
+        </article>
+        <article class="card left">
+          <div class="label">Left commentary</div>
+          <div class="big">~56.2M</div>
+          <div class="meta">combined subscribers<br /><strong>Median ~1.5M</strong> · n≈26</div>
+        </article>
+        <article class="card right">
+          <div class="label">Right commentary</div>
+          <div class="big">~115.5M</div>
+          <div class="meta">combined subscribers<br /><strong>Median ~1.9M</strong> · n≈50</div>
+        </article>
+      </div>
+      <div class="callouts">
+        <div class="callout">
+          <strong>No overlap</strong> between political commentary cohorts and the Overall Top 100 — different leagues of scale and genre.
+        </div>
+        <div class="callout">
+          <strong>Chaotic Era (Jul 2026):</strong> among top 100 political, <strong style="color:var(--left)">36 left</strong> / <strong style="color:var(--right)">64 right</strong> → <strong>151.7M</strong> vs <strong>251.6M</strong> combined subs.
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tables-heading">
+      <h2 id="tables-heading" class="section-title">Top 10 channels</h2>
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab overall active" data-panel="overall" role="tab" aria-selected="true">Overall</button>
+        <button type="button" class="tab left" data-panel="left" role="tab" aria-selected="false">Left</button>
+        <button type="button" class="tab right" data-panel="right" role="tab" aria-selected="false">Right</button>
+      </div>
+
+      <div class="tables">
+        <div id="panel-overall" class="panel active" role="tabpanel">
+          <div class="table-card">
+            <div class="table-head">
+              <h3>Top 10 Overall <span class="pill overall">Global entertainment</span></h3>
+            </div>
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Channel</th>
+                    <th>Subscribers</th>
+                    <th>Total views</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td class="rank">1</td><td class="channel">MrBeast</td><td class="num overall">516M</td><td class="num">139.62B</td></tr>
+                  <tr><td class="rank">2</td><td class="channel">T-Series</td><td class="num overall">315M</td><td class="num">354.69B</td></tr>
+                  <tr><td class="rank">3</td><td class="channel">Cocomelon - Nursery Rhymes</td><td class="num overall">202M</td><td class="num">226.97B</td></tr>
+                  <tr><td class="rank">4</td><td class="channel">SET India</td><td class="num overall">190M</td><td class="num">192.27B</td></tr>
+                  <tr><td class="rank">5</td><td class="channel">Vlad and Niki</td><td class="num overall">150M</td><td class="num">123.25B</td></tr>
+                  <tr><td class="rank">6</td><td class="channel">Stokes Twins</td><td class="num overall">146M</td><td class="num">32.88B</td></tr>
+                  <tr><td class="rank">7</td><td class="channel">Kids Diana Show</td><td class="num overall">138M</td><td class="num">125.91B</td></tr>
+                  <tr><td class="rank">8</td><td class="channel">KIMPRO</td><td class="num overall">135M</td><td class="num">153.51B</td></tr>
+                  <tr><td class="rank">9</td><td class="channel">Like Nastya</td><td class="num overall">133M</td><td class="num">123.01B</td></tr>
+                  <tr><td class="rank">10</td><td class="channel">Zee Music Company</td><td class="num overall">123M</td><td class="num">91.21B</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-left" class="panel" role="tabpanel">
+          <div class="table-card">
+            <div class="table-head">
+              <h3>Top 10 Left <span class="pill left">Commentary</span></h3>
+            </div>
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Channel</th>
+                    <th>Subscribers</th>
+                    <th>Total views</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td class="rank">1</td><td class="channel">The Young Turks</td><td class="num left">6.72M</td><td class="num">7.54B</td></tr>
+                  <tr><td class="rank">2</td><td class="channel">MeidasTouch</td><td class="num left">6.46M</td><td class="num">10.74B</td></tr>
+                  <tr><td class="rank">3</td><td class="channel">Brian Tyler Cohen</td><td class="num left">5.25M</td><td class="num">5.46B</td></tr>
+                  <tr><td class="rank">4</td><td class="channel">NowThis Impact</td><td class="num left">5.21M</td><td class="num">5.18B</td></tr>
+                  <tr><td class="rank">5</td><td class="channel">More Perfect Union</td><td class="num left">3.93M</td><td class="num">807.2M</td></tr>
+                  <tr><td class="rank">6</td><td class="channel">David Pakman Show</td><td class="num left">3.66M</td><td class="num">3.8B</td></tr>
+                  <tr><td class="rank">7</td><td class="channel">Democracy Now!</td><td class="num left">3.39M</td><td class="num">1.36B</td></tr>
+                  <tr><td class="rank">8</td><td class="channel">AJ+</td><td class="num left">2.53M</td><td class="num">732.5M</td></tr>
+                  <tr><td class="rank">9</td><td class="channel">Secular Talk</td><td class="num left">2.29M</td><td class="num">1.98B</td></tr>
+                  <tr><td class="rank">10</td><td class="channel">The Majority Report w/ Sam Seder</td><td class="num left">2.09M</td><td class="num">1.48B</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-right" class="panel" role="tabpanel">
+          <div class="table-card">
+            <div class="table-head">
+              <h3>Top 10 Right <span class="pill right">Commentary</span></h3>
+            </div>
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Channel</th>
+                    <th>Subscribers</th>
+                    <th>Total views</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td class="rank">1</td><td class="channel">Turning Point USA</td><td class="num right">7.67M</td><td class="num">3.53B</td></tr>
+                  <tr><td class="rank">2</td><td class="channel">Ben Shapiro</td><td class="num right">6.98M</td><td class="num">4.79B</td></tr>
+                  <tr><td class="rank">3</td><td class="channel">Benny Johnson</td><td class="num right">6.1M</td><td class="num">5.03B</td></tr>
+                  <tr><td class="rank">4</td><td class="channel">Candace Owens</td><td class="num right">6.08M</td><td class="num">1.56B</td></tr>
+                  <tr><td class="rank">5</td><td class="channel">StevenCrowder</td><td class="num right">5.91M</td><td class="num">2.1B</td></tr>
+                  <tr><td class="rank">6</td><td class="channel">Charlie Kirk</td><td class="num right">5.89M</td><td class="num">1.38B</td></tr>
+                  <tr><td class="rank">7</td><td class="channel">Tucker Carlson</td><td class="num right">5.75M</td><td class="num">1.69B</td></tr>
+                  <tr><td class="rank">8</td><td class="channel">Megyn Kelly</td><td class="num right">4.15M</td><td class="num">3.38B</td></tr>
+                  <tr><td class="rank">9</td><td class="channel">Donald J Trump</td><td class="num right">3.96M</td><td class="num">933.9M</td></tr>
+                  <tr><td class="rank">10</td><td class="channel">The Officer Tatum</td><td class="num right">3.84M</td><td class="num">2.22B</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="charts-heading">
+      <h2 id="charts-heading" class="section-title">Charts &amp; infographic</h2>
+      <div class="media-grid">
+        <figure>
+          <img
+            src="assets/youtube_top10_overall_left_right_infographic.png"
+            alt="Infographic: YouTube Top 10 Overall vs Left vs Right audiences"
+            width="1200"
+            height="auto"
+            loading="lazy"
+          />
+          <figcaption>Infographic — Top 10 Overall / Left / Right side-by-side</figcaption>
+        </figure>
+        <div class="charts-row">
+          <figure>
+            <img
+              src="assets/youtube_overall_vs_left_vs_right_subs.png"
+              alt="Chart comparing combined subscribers Overall vs Left vs Right"
+              loading="lazy"
+            />
+            <figcaption>Combined subscribers: Overall vs Left vs Right</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="assets/youtube_top15_left_vs_right.png"
+              alt="Chart comparing Top 15 Left vs Right YouTube channels"
+              loading="lazy"
+            />
+            <figcaption>Top 15 Left vs Right subscriber comparison</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="caveats-heading">
+      <h2 id="caveats-heading" class="section-title">Methodology &amp; caveats</h2>
+      <div class="caveats">
+        <ul>
+          <li>Overall is global entertainment — different genre than political.</li>
+          <li>Leans are analyst judgment.</li>
+          <li>Cable (Fox / CNN / MS NOW) omitted from political top-10 for creator comparison.</li>
+          <li>Sources: vidIQ, SocialBlade, Feedspot; snapshot Sep 2026.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Political Data · Sep 2026 · Static site · Data also in <a href="data.json">data.json</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll(".tab");
+      var panels = {
+        overall: document.getElementById("panel-overall"),
+        left: document.getElementById("panel-left"),
+        right: document.getElementById("panel-right")
+      };
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var id = tab.getAttribute("data-panel");
+          tabs.forEach(function (t) {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+          tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+          Object.keys(panels).forEach(function (key) {
+            panels[key].classList.toggle("active", key === id);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "title": "YouTube Audiences: Overall vs Left vs Right",
+  "subtitle": "Political Data · Sep 2026",
+  "as_of": "2026-09",
+  "summary": {
+    "overall": {
+      "label": "Overall Top 100",
+      "combined_subs": "~8.34B",
+      "combined_subs_raw": 8340000000,
+      "median_subs": "~68M",
+      "median_subs_raw": 68000000,
+      "n": 100
+    },
+    "left": {
+      "label": "Left commentary",
+      "combined_subs": "~56.2M",
+      "combined_subs_raw": 56200000,
+      "median_subs": "~1.5M",
+      "median_subs_raw": 1500000,
+      "n": 26
+    },
+    "right": {
+      "label": "Right commentary",
+      "combined_subs": "~115.5M",
+      "combined_subs_raw": 115500000,
+      "median_subs": "~1.9M",
+      "median_subs_raw": 1900000,
+      "n": 50
+    },
+    "overlap_with_overall_top100": false,
+    "chaotic_era_jul2026": {
+      "left_count": 36,
+      "right_count": 64,
+      "left_subs": "151.7M",
+      "right_subs": "251.6M",
+      "note": "36 left / 64 right among top 100 political → 151.7M vs 251.6M"
+    }
+  },
+  "top10_overall": [
+    {"rank": 1, "channel": "MrBeast", "subscribers": "516M", "subscribers_raw": 516000000, "views": "139.62B", "views_raw": 139620000000},
+    {"rank": 2, "channel": "T-Series", "subscribers": "315M", "subscribers_raw": 315000000, "views": "354.69B", "views_raw": 354690000000},
+    {"rank": 3, "channel": "Cocomelon - Nursery Rhymes", "subscribers": "202M", "subscribers_raw": 202000000, "views": "226.97B", "views_raw": 226970000000},
+    {"rank": 4, "channel": "SET India", "subscribers": "190M", "subscribers_raw": 190000000, "views": "192.27B", "views_raw": 192270000000},
+    {"rank": 5, "channel": "Vlad and Niki", "subscribers": "150M", "subscribers_raw": 150000000, "views": "123.25B", "views_raw": 123250000000},
+    {"rank": 6, "channel": "Stokes Twins", "subscribers": "146M", "subscribers_raw": 146000000, "views": "32.88B", "views_raw": 32880000000},
+    {"rank": 7, "channel": "Kids Diana Show", "subscribers": "138M", "subscribers_raw": 138000000, "views": "125.91B", "views_raw": 125910000000},
+    {"rank": 8, "channel": "KIMPRO", "subscribers": "135M", "subscribers_raw": 135000000, "views": "153.51B", "views_raw": 153510000000},
+    {"rank": 9, "channel": "Like Nastya", "subscribers": "133M", "subscribers_raw": 133000000, "views": "123.01B", "views_raw": 123010000000},
+    {"rank": 10, "channel": "Zee Music Company", "subscribers": "123M", "subscribers_raw": 123000000, "views": "91.21B", "views_raw": 91210000000}
+  ],
+  "top10_left": [
+    {"rank": 1, "channel": "The Young Turks", "subscribers": "6.72M", "subscribers_raw": 6720000, "views": "7.54B", "views_raw": 7540000000},
+    {"rank": 2, "channel": "MeidasTouch", "subscribers": "6.46M", "subscribers_raw": 6460000, "views": "10.74B", "views_raw": 10740000000},
+    {"rank": 3, "channel": "Brian Tyler Cohen", "subscribers": "5.25M", "subscribers_raw": 5250000, "views": "5.46B", "views_raw": 5460000000},
+    {"rank": 4, "channel": "NowThis Impact", "subscribers": "5.21M", "subscribers_raw": 5210000, "views": "5.18B", "views_raw": 5180000000},
+    {"rank": 5, "channel": "More Perfect Union", "subscribers": "3.93M", "subscribers_raw": 3930000, "views": "807.2M", "views_raw": 807200000},
+    {"rank": 6, "channel": "David Pakman Show", "subscribers": "3.66M", "subscribers_raw": 3660000, "views": "3.8B", "views_raw": 3800000000},
+    {"rank": 7, "channel": "Democracy Now!", "subscribers": "3.39M", "subscribers_raw": 3390000, "views": "1.36B", "views_raw": 1360000000},
+    {"rank": 8, "channel": "AJ+", "subscribers": "2.53M", "subscribers_raw": 2530000, "views": "732.5M", "views_raw": 732500000},
+    {"rank": 9, "channel": "Secular Talk", "subscribers": "2.29M", "subscribers_raw": 2290000, "views": "1.98B", "views_raw": 1980000000},
+    {"rank": 10, "channel": "The Majority Report w/ Sam Seder", "subscribers": "2.09M", "subscribers_raw": 2090000, "views": "1.48B", "views_raw": 1480000000}
+  ],
+  "top10_right": [
+    {"rank": 1, "channel": "Turning Point USA", "subscribers": "7.67M", "subscribers_raw": 7670000, "views": "3.53B", "views_raw": 3530000000},
+    {"rank": 2, "channel": "Ben Shapiro", "subscribers": "6.98M", "subscribers_raw": 6980000, "views": "4.79B", "views_raw": 4790000000},
+    {"rank": 3, "channel": "Benny Johnson", "subscribers": "6.1M", "subscribers_raw": 6100000, "views": "5.03B", "views_raw": 5030000000},
+    {"rank": 4, "channel": "Candace Owens", "subscribers": "6.08M", "subscribers_raw": 6080000, "views": "1.56B", "views_raw": 1560000000},
+    {"rank": 5, "channel": "StevenCrowder", "subscribers": "5.91M", "subscribers_raw": 5910000, "views": "2.1B", "views_raw": 2100000000},
+    {"rank": 6, "channel": "Charlie Kirk", "subscribers": "5.89M", "subscribers_raw": 5890000, "views": "1.38B", "views_raw": 1380000000},
+    {"rank": 7, "channel": "Tucker Carlson", "subscribers": "5.75M", "subscribers_raw": 5750000, "views": "1.69B", "views_raw": 1690000000},
+    {"rank": 8, "channel": "Megyn Kelly", "subscribers": "4.15M", "subscribers_raw": 4150000, "views": "3.38B", "views_raw": 3380000000},
+    {"rank": 9, "channel": "Donald J Trump", "subscribers": "3.96M", "subscribers_raw": 3960000, "views": "933.9M", "views_raw": 933900000},
+    {"rank": 10, "channel": "The Officer Tatum", "subscribers": "3.84M", "subscribers_raw": 3840000, "views": "2.22B", "views_raw": 2220000000}
+  ],
+  "caveats": [
+    "Overall is global entertainment — different genre than political",
+    "Leans are analyst judgment",
+    "Cable (Fox/CNN/MS NOW) omitted from political top-10 for creator comparison",
+    "Sources: vidIQ, SocialBlade, Feedspot; snapshot Sep 2026"
+  ],
+  "assets": {
+    "infographic": "assets/youtube_top10_overall_left_right_infographic.png",
+    "subs_comparison": "assets/youtube_overall_vs_left_vs_right_subs.png",
+    "top15_left_right": "assets/youtube_top15_left_vs_right.png"
+  }
+}
